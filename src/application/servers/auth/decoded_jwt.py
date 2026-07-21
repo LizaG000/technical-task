@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from dataclasses import dataclass
 
 from pydantic import json
-from application.schemas.auth import AuthSchemas
+from application.schemas.auth import AuthSchema
 from src.config import AuthConfig
 
 @dataclass(slots=True, frozen=True, kw_only=True)
@@ -17,4 +17,4 @@ class DecodedJwt():
             key=public_key,
             algorithm="RS256"
         )
-        return AuthSchemas.model_validate(json.loads(payload))
+        return AuthSchema.model_validate(json.loads(payload))

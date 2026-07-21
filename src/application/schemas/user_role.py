@@ -1,0 +1,15 @@
+from uuid import UUID
+from datetime import datetime, date
+
+from pydantic import BaseModel
+
+class UserRoleSchema(BaseModel):
+    id: UUID
+    user_id: UUID
+    role_id: UUID
+    created_at: datetime
+    updated_at: datetime
+    
+class CreateUserRoleSchema(BaseModel):
+    user_id: UUID
+    role_id: UUID
