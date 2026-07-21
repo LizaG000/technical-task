@@ -23,7 +23,23 @@
    cd deploy
    cp configs/excemple.config.toml configs/config.toml 
    ```
-4. Создайте и запустите виртуальное окружение
+4. Сгенерируйте приватный и публичный ключи в каталог src/application/servers/auth/keys
+   Приватный ключ
+   ```
+   openssl genpkey \
+      -algorithm RSA \
+      -out src/application/servers/auth/keys/private.pem \
+      -pkeyopt rsa_keygen_bits:2048
+   ```
+
+   Публичный ключ
+   ```
+   openssl pkey \
+      -in src/application/servers/auth/keys/private.pem \
+      -pubout \
+      -out src/application/servers/auth/keys/public.pem
+   ```
+5. Создайте и запустите виртуальное окружение
    ```
    python -m venv [имя_вашего_окружения]
    ```
@@ -35,7 +51,7 @@
    ```
    source [имя_вашего_окружения]/bin/activate
    ```
-5. Проверьте, что у вас есть bash
+6. Проверьте, что у вас есть bash
 
    Для Windows
    
@@ -83,17 +99,17 @@
    brew install bash
    ```
 
-6. Вернуться в корень проекта и запустить через Makefile (если у вас виндовс просто дублируйте команды)
+7. Вернуться в корень проекта и запустить через Makefile (если у вас виндовс просто дублируйте команды)
    ```
    cd ..
    make compose
    ```
 
-7.  После запуска открой в браузере:
+8.  После запуска открой в браузере:
    
      http://localhost:8000/docs
 
-8. Чтобы остановить проект
+9. Чтобы остановить проект
    ```
    make down
    ```

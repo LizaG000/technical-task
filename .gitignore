@@ -40,3 +40,5 @@ migrations/
 .DS_Store
 *.swp
 *.swo
+
+*.pem
