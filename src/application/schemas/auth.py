@@ -16,7 +16,11 @@ class RegistrationSchema(CreateUserSchema):
         max_length=16,
         pattern=PASSWORD_PATTERN,
     )
-    replay_password: str
+    replay_password: str = Field(
+        min_length=8,
+        max_length=16,
+        pattern=PASSWORD_PATTERN,
+    )
 
     @model_validator(mode="after")
     def validate_passwords_match(self) -> "RegistrationSchema":
