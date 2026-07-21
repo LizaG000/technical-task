@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from pydantic import ConfigDict
 from dynaconf import Dynaconf
 from loguru import logger
@@ -25,14 +26,16 @@ class DatabaseConfig(BaseSchema):
 
 
 class AuthConfig(BaseSchema):
-    private_key_path: str = 'src/application/servers/auth/keys/private.pem'
-    public_key_path: str = 'src/application/servers/auth/keys/public.pem'
+    private_key_path: Path = 'src/application/servers/auth/keys/private.pem'
+    public_key_path: Path = 'src/application/servers/auth/keys/public.pem'
+    time: int = 1200
 
 class Config(BaseSchema):
     model_config = ConfigDict(extra='allow', from_attributes=True)
     api: ApiConfig
     database: DatabaseConfig
     auth: AuthConfig
+    algorithm: str = "RS256"
 
 
 def get_config() -> Config:

@@ -13,3 +13,5 @@ database='postgres'
 [auth]
 private_key_path='src/application/servers/auth/keys/private.pem'
 public_key_path='src/application/servers/auth/keys/public.pem'
+time=12000
+algorithm="RS256"

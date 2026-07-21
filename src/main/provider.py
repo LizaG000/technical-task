@@ -10,6 +10,8 @@ from src.config import ApiConfig
 from src.config import DatabaseConfig
 from src.config import AuthConfig
 
+from application.servers.auth.encoded_jwt import EncodedJwt
+from src.application.servers.auth.decoded_jwt import DecodedJwt
 from src.usecase.users.create import CreateUserUsecase
 
 class MainProvider(Provider):
@@ -32,6 +34,8 @@ class MainProvider(Provider):
     _request = from_context(provides=Request, scope=Scope.REQUEST)
 
     _get_usecases = provide_all(
+        EncodedJwt,
+        DecodedJwt,
         CreateUserUsecase,
     )
 
