@@ -23,10 +23,16 @@ class DatabaseConfig(BaseSchema):
     def dsn(self, db = True) -> str:
         return f'{self.driver}://{self.username}:{self.password}@{self.host}:{self.port}/{self.database}'
 
+
+class AuthConfig(BaseSchema):
+    private_key_path: str = 'src/application/servers/auth/keys/private.pem'
+    public_key_path: str = 'src/application/servers/auth/keys/public.pem'
+
 class Config(BaseSchema):
     model_config = ConfigDict(extra='allow', from_attributes=True)
     api: ApiConfig
     database: DatabaseConfig
+    auth: AuthConfig
 
 
 def get_config() -> Config:

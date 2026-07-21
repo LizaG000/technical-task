@@ -4,8 +4,12 @@ port = 8000
 project_name = 'base'
 
 [database]
-host='127.0.0.1'
-port=5433
+host='database'
+port=5432
 username='postgres'
 password='postgres'
 database='postgres'
+
+[auth]
+private_key_path='src/application/servers/auth/keys/private.pem'
+public_key_path='src/application/servers/auth/keys/public.pem'
