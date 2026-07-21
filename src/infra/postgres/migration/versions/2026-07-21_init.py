@@ -114,18 +114,13 @@ def upgrade() -> None:
 
     admin_role_id = uuid.uuid4()
     user_role_id = uuid.uuid4()
+    editor_role_id = uuid.uuid4()
 
     admin_id = uuid.uuid4()
     user1_id = uuid.uuid4()
     user2_id = uuid.uuid4()
     user3_id = uuid.uuid4()
     user4_id = uuid.uuid4()
-
-    password_admin_id = uuid.uuid4()
-    password1_id = uuid.uuid4()
-    password2_id = uuid.uuid4()
-    password3_id = uuid.uuid4()
-    password4_id = uuid.uuid4()
 
 
     # 1. Роли
@@ -136,6 +131,12 @@ def upgrade() -> None:
             {
                 "id": admin_role_id,
                 "name": "admin",
+                "created_at": now,
+                "updated_at": now,
+            },
+            {
+                "id": editor_role_id,
+                "name": "editor",
                 "created_at": now,
                 "updated_at": now,
             },
@@ -216,35 +217,35 @@ def upgrade() -> None:
             {
                 "id": uuid.uuid4(),
                 "user_id": admin_id,
-                "password": "REPLACE_WITH_ADMIN_PASSWORD_HASH",
+                "password": "$2b$12$1yENjit5FkM6DxUpsT0oNuXzSK0Zek6x31FWibmygFTcFDRAMqdGu",
                 "created_at": now,
                 "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
                 "user_id": user1_id,
-                "password": "REPLACE_WITH_USER_PASSWORD_HASH",
+                "password": "$2b$12$sMz1mWTGtBchBzuAwBf/iO3XEtPrRvGWfQEO757qdWbckAqeB9cJ6",
                 "created_at": now,
                 "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
                 "user_id": user2_id,
-                "password": "REPLACE_WITH_USER_PASSWORD_HASH",
+                "password": "$2b$12$cpj6wwwUqfSyuEQVkDi0iOPUmdjXePKnmeTyAyUI3J/GrXXCrg/3u",
                 "created_at": now,
                 "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
                 "user_id": user3_id,
-                "password": "REPLACE_WITH_USER_PASSWORD_HASH",
+                "password": "$2b$12$xXJGhD6gUMH/YhUuUCNcBuzeOC/g9Cv8dd64pJ0B2k0yXRSMeZgbG",
                 "created_at": now,
                 "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
                 "user_id": user4_id,
-                "password": "REPLACE_WITH_USER_PASSWORD_HASH",
+                "password": "$2b$12$grvNASao7p0QNUhA2Y9i0eVsODFjkNLwQSZnZgniVT6gvVK8b4LSm",
                 "created_at": now,
                 "updated_at": now,
             }
@@ -265,7 +266,7 @@ def upgrade() -> None:
             {
                 "id": uuid.uuid4(),
                 "user_id": user1_id,
-                "role_id": user_role_id,
+                "role_id": editor_role_id,
                 "created_at": now,
                 "updated_at": now,
             },
