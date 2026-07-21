@@ -8,6 +8,7 @@ from fastapi import Request
 from src.config import Config
 from src.config import ApiConfig
 from src.config import DatabaseConfig
+from src.config import AuthConfig
 
 from src.usecase.users.create import CreateUserUsecase
 
@@ -24,6 +25,10 @@ class MainProvider(Provider):
     async def _get_database_config(self, config: Config) -> DatabaseConfig:
         return config.database
 
+    @provide(scope=Scope.APP)
+    async def _get_auth_config(self, config: Config) -> AuthConfig:
+        return config.auth
+    
     _request = from_context(provides=Request, scope=Scope.REQUEST)
 
     _get_usecases = provide_all(
