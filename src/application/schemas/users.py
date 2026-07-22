@@ -33,3 +33,6 @@ class CreateUserSchema(BaseModel):
         pattern=NAME_PATTERN,
     )
     email: str = Field(pattern=EMAIL_PATTERN)
+
+class UserRoleSchema(UserSchema):
+    role: str

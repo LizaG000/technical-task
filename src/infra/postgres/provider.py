@@ -1,6 +1,6 @@
 from collections.abc import AsyncIterator
 from typing import TypeVar, Type
-from dishka import Provider, Scope, provide
+from dishka import Provider, Scope, provide, provide_all
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from src.config import DatabaseConfig
 from loguru import logger
@@ -8,10 +8,13 @@ from loguru import logger
 from src.infra.postgres.gateways.base import GetAllByIdUserGate, CreateGate
 from src.infra.postgres.gateways.base import CreateReturningGate
 from src.infra.postgres.gateways.base import GetByIdGate
+from src.infra.postgres.gateways.base import GetByIdUserGate
 from src.infra.postgres.gateways.base import UpdateGate
 from src.infra.postgres.gateways.base import UpdateReturningGate
 from src.infra.postgres.gateways.base import DeleteGate
 from src.infra.postgres.gateways.base import DeleteReturningGate
+
+from src.infra.postgres.gateways.users import GetUserGate
 
 TTable = TypeVar("TTable")
 TEntity = TypeVar("TEntity")
@@ -52,6 +55,20 @@ class PostgresProvider(Provider):
             session: AsyncSession,
     ) -> GetAllByIdUserGate[TTable, TEntity, TEntityId]:
         return GetAllByIdUserGate(
+            session=session,
+            table=table,
+            schema_type=schema_type,
+            entity_id=entity_id,
+        )
+    @provide
+    async def _get_by_id_user_gate(
+            self,
+            table: Type[TTable],
+            schema_type: Type[TEntity],
+            entity_id: Type[TEntityId],
+            session: AsyncSession,
+    ) -> GetByIdUserGate[TTable, TEntity, TEntityId]:
+        return GetByIdUserGate(
             session=session,
             table=table,
             schema_type=schema_type,
@@ -160,3 +177,7 @@ class PostgresProvider(Provider):
             entity_id=entity_id,
             schema_type=schema_type,
         )
+
+    _get_gateways = provide_all(
+        GetUserGate,
+    )

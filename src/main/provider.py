@@ -12,7 +12,8 @@ from src.config import AuthConfig
 
 from src.application.servers.auth.encoded_jwt import EncodedJwt
 from src.application.servers.auth.decoded_jwt import DecodedJwt
-from usecase.auth.registration import RegistrationUserUsecase
+from src.usecase.auth.registration import RegistrationUserUsecase
+from src.usecase.auth.login import LoginUserUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -41,5 +42,6 @@ class MainProvider(Provider):
         EncodedJwt,
         DecodedJwt,
         RegistrationUserUsecase,
+        LoginUserUsecase,
     )
 

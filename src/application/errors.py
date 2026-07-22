@@ -50,3 +50,10 @@ class NotFoundError(BaseError):
         status_code: int = status.HTTP_404_NOT_FOUND,
     ):
         super().__init__(f"В {table.__tablename__} запись не найдена", status_code)
+
+
+class InvalidCredentialsError(Exception):
+    code = "INVALID_CREDENTIALS"
+
+    def __init__(self) -> None:
+        super().__init__("Неверный email или пароль")
