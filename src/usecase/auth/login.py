@@ -23,7 +23,6 @@ class LoginUserUsecase(Usecase[RequestLoginSchema, ResponseRegistrationSchema]):
     async def __call__(self, data: RequestLoginSchema) -> ResponseRegistrationSchema:
         async with self.session.begin():
             user = await self.get_user(data.email)
-            logger.info(user)
             password = await self.get_password(user.id)
             if not check_password(data.password, password.password):
                 raise InvalidCredentialsError()
