@@ -15,6 +15,6 @@ class DecodedJwt():
         payload = jwt.decode(
             jwt=token,
             key=public_key,
-            algorithm="RS256"
+            algorithms=self.config.algorithm
         )
-        return AuthSchema.model_validate(json.loads(payload))
+        return AuthSchema.model_validate(payload)

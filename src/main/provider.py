@@ -12,6 +12,7 @@ from src.config import AuthConfig
 
 from src.usecase.auth.registration import RegistrationUserUsecase
 from src.usecase.auth.login import LoginUserUsecase
+from src.usecase.users.update import UpdateUserUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -39,5 +40,6 @@ class MainProvider(Provider):
     _get_usecases = provide_all(
         RegistrationUserUsecase,
         LoginUserUsecase,
+        UpdateUserUsecase,
     )
 
