@@ -13,6 +13,7 @@ from src.config import AuthConfig
 from src.usecase.auth.registration import RegistrationUserUsecase
 from src.usecase.auth.login import LoginUserUsecase
 from src.usecase.users.update import UpdateUserUsecase
+from src.usecase.users.delete import DeleteUserUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -41,5 +42,6 @@ class MainProvider(Provider):
         RegistrationUserUsecase,
         LoginUserUsecase,
         UpdateUserUsecase,
+        DeleteUserUsecase,
     )
 

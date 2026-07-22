@@ -59,3 +59,7 @@ class UpdateUserSchema(BaseModel):
         pattern=NAME_PATTERN,
     )
     updated_at: datetime = datetime.now(timezone.utc)
+
+class SoftDeleteUserSchema(BaseModel):
+    is_active: bool = False
+    updated_at: datetime = datetime.now(timezone.utc)

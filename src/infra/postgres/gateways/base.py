@@ -98,7 +98,7 @@ class UpdateGate(Generic[TTable, TUpdate, TEntityId], PostgresGateway):
     update_schema_type: Type[TUpdate]
     entity_id: Type[TEntityId]
 
-    async def __call__(self, entity: TCreate, entity_id: TEntityId) -> None:
+    async def __call__(self, entity_id: TEntityId, entity: TCreate) -> None:
         stmt = update(self.table).where(self.table.id==entity_id).values(**entity.model_dump())
         try:
             await self.session.execute(stmt)
