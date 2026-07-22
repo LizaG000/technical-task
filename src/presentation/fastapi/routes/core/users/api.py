@@ -7,9 +7,8 @@ from fastapi import status
 from src.application.schemas.users import UpdateUserSchema, UserSchema
 from src.usecase.users.update import UpdateUserUsecase
 ROUTER = APIRouter(route_class=DishkaRoute)
-security = HTTPBearer()
 
-@ROUTER.patch('', status_code=status.HTTP_200_OK, response_model=UserSchema, dependencies=[Depends(security)])
+@ROUTER.patch('', status_code=status.HTTP_200_OK, response_model=UserSchema, dependencies=[Depends(HTTPBearer())])
 async def registration_users(
     usecase: FromDishka[UpdateUserUsecase],
     data: UpdateUserSchema) -> UserSchema:
