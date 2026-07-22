@@ -68,10 +68,6 @@ class UserModel(BaseDBModel):
         nullable=False,
         unique=True,
     )
-    birth_date: Mapped[date] = mapped_column(
-        Date,
-        nullable=False,
-    )
     is_active: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,
@@ -99,10 +95,10 @@ class PasswordsModel(BaseDBModel):
 
 class RolesModel(BaseDBModel):
     __tablename__ = 'roles'
-    id: Mapped[uuid_pk]
-    name: Mapped[str] = mapped_column(
+    role: Mapped[str] = mapped_column(
         String(255),
         nullable=False,
+        primary_key=True,
     )
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
@@ -117,8 +113,8 @@ class UserRolesModel(BaseDBModel):
         nullable=False,
 
     )
-    role_id: Mapped[uuid.UUID] = mapped_column(
-        UUID,
+    role: Mapped[str] = mapped_column(
+        String(255),
         ForeignKey("db_schema.roles.id"),
         nullable=False,
 

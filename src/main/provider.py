@@ -5,12 +5,12 @@ from dishka import provide
 from dishka import provide_all
 from fastapi import Request
 
-from src.config import Config
+from src.config import Config, DataConfig
 from src.config import ApiConfig
 from src.config import DatabaseConfig
 from src.config import AuthConfig
 
-from application.servers.auth.encoded_jwt import EncodedJwt
+from src.application.servers.auth.encoded_jwt import EncodedJwt
 from src.application.servers.auth.decoded_jwt import DecodedJwt
 from src.usecase.users.create import CreateUserUsecase
 
@@ -30,6 +30,10 @@ class MainProvider(Provider):
     @provide(scope=Scope.APP)
     async def _get_auth_config(self, config: Config) -> AuthConfig:
         return config.auth
+    
+    @provide(scope=Scope.APP)
+    async def _get_data_config(self, config: Config) -> DataConfig:
+        return config.data
     
     _request = from_context(provides=Request, scope=Scope.REQUEST)
 

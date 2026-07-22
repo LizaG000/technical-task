@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from dataclasses import dataclass
 
 from pydantic import json
-from application.schemas.auth import AuthSchema
+from src.application.schemas.auth import AuthSchema
 from src.config import AuthConfig
 
 @dataclass(slots=True, frozen=True, kw_only=True)

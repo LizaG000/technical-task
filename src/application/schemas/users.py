@@ -9,7 +9,6 @@ class UserSchema(BaseModel):
     middle_name: str
     last_name: str
     email: str
-    birth_date: date
     is_active: bool
     created_at: datetime
     updated_at: datetime
@@ -34,15 +33,3 @@ class CreateUserSchema(BaseModel):
         pattern=NAME_PATTERN,
     )
     email: str = Field(pattern=EMAIL_PATTERN)
-    birth_date: date
-    is_active: bool
-
-    @field_validator("birth_date")
-    @classmethod
-    def validate_birth_date(cls, value: date) -> date:
-        if value > date.today():
-            raise ValueError(
-                "Дата рождения не может быть в будущем"
-            )
-
-        return value

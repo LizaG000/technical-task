@@ -29,13 +29,17 @@ class AuthConfig(BaseSchema):
     private_key_path: Path = 'src/application/servers/auth/keys/private.pem'
     public_key_path: Path = 'src/application/servers/auth/keys/public.pem'
     time: int = 1200
+    algorithm: str = "RS256"
+
+class DataConfig(BaseSchema):
+    user_role_id: str
 
 class Config(BaseSchema):
     model_config = ConfigDict(extra='allow', from_attributes=True)
     api: ApiConfig
     database: DatabaseConfig
     auth: AuthConfig
-    algorithm: str = "RS256"
+    data: DataConfig
 
 
 def get_config() -> Config:
