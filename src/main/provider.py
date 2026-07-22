@@ -12,7 +12,7 @@ from src.config import AuthConfig
 
 from src.application.servers.auth.encoded_jwt import EncodedJwt
 from src.application.servers.auth.decoded_jwt import DecodedJwt
-from src.usecase.users.create import CreateUserUsecase
+from usecase.auth.registration import RegistrationUserUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -40,6 +40,6 @@ class MainProvider(Provider):
     _get_usecases = provide_all(
         EncodedJwt,
         DecodedJwt,
-        CreateUserUsecase,
+        RegistrationUserUsecase,
     )
 

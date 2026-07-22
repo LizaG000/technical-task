@@ -5,14 +5,14 @@ from src.infra.postgres.gateways.base import CreateReturningGate, CreateGate
 from src.application.schemas.users import CreateUserSchema, UserSchema
 from src.application.schemas.password import CreatePasswordSchema
 from src.application.schemas.user_role import CreateUserRoleSchema
-from src.usecase.users.schemas import RequestRegistrationSchema, ResponseRegistrationSchema
+from src.usecase.auth.schemas import RequestRegistrationSchema, ResponseRegistrationSchema
 from src.infra.postgres.tables import UserModel, PasswordsModel, UserRolesModel
 from dataclasses import dataclass
 from src.application.servers.auth.hash_password import hash_password
 from src.application.servers.auth.encoded_jwt import EncodedJwt
 
 @dataclass(slots=True, frozen=True, kw_only=True)
-class CreateUserUsecase(Usecase[RequestRegistrationSchema, ResponseRegistrationSchema]):
+class RegistrationUserUsecase(Usecase[RequestRegistrationSchema, ResponseRegistrationSchema]):
     session: AsyncSession
     config: DataConfig
     encoded_jwt: EncodedJwt
