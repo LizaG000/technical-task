@@ -8,6 +8,7 @@ from src.infra.redis.get_jwt import GetJWTToRedis
 
 
 class RedisProvider(Provider):
+    scope=Scope.REQUEST
 
     @provide(scope=Scope.APP)
     async def _get_engine(self, config: RedisConfig) -> AsyncIterator[Redis]:

@@ -14,7 +14,7 @@ class LogoutUserUsecase(Usecase[None, None]):
     check_is_active: CheckIsActive
     set_jwt: SetJWTToRedis
     
-    async def __call__(self, data: None) -> None:
+    async def __call__(self, data: None=None) -> None:
         async with self.session.begin():
             self.check_is_active(self.auth.id)
             now = datetime.now(timezone.utc)
