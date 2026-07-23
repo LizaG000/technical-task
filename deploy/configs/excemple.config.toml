@@ -22,6 +22,5 @@ user_role_id='user'
 [redis]
 host = 'redis'
 port = 6379
-password = redis
-user = redis
-user_password = redis
+db = 3
+password = 'redis'
