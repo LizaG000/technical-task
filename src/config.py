@@ -38,6 +38,8 @@ class RedisConfig(BaseSchema):
     host: str = 'redis'
     port: int = 6379
     password: str = 'redis'
+    user: str = 'redis'
+    user_password = 'redis'
 
 class Config(BaseSchema):
     model_config = ConfigDict(extra='allow', from_attributes=True)
