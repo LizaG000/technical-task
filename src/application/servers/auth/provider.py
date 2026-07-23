@@ -5,6 +5,7 @@ from src.application.servers.auth.decoded_jwt import DecodedJwt
 from src.application.servers.auth.check_is_active import CheckIsActive
 from src.application.schemas.auth import AuthSchema
 from src.application.errors import UnauthorizedError
+from loguru import logger
 
 
 class AuthProvider(Provider):
@@ -24,6 +25,7 @@ class AuthProvider(Provider):
     ) -> AuthSchema:
         auth_header = request.headers.get("Authorization")
         token = auth_header.removeprefix("Bearer ").strip()
+        logger.info(token)
         try:
             return await processor(token)
         except ValueError as e:

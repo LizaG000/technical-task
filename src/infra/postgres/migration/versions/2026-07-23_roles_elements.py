@@ -26,7 +26,7 @@ def upgrade() -> None:
     op.create_table('elements',
     sa.Column('element', sa.String(length=255), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('patchd_at', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
     sa.PrimaryKeyConstraint('element'),
     schema='db_schema'
     )
@@ -40,7 +40,7 @@ def upgrade() -> None:
     sa.Column('get_all', sa.Boolean(), nullable=False),
     sa.Column('delete', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('patchd_at', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), nullable=False),
     sa.ForeignKeyConstraint(['element'], ['db_schema.elements.element'], ),
     sa.ForeignKeyConstraint(['role'], ['db_schema.roles.role'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -51,7 +51,7 @@ def upgrade() -> None:
         "elements",
         sa.column("element", sa.String()),
         sa.column("created_at", sa.DateTime(timezone=True)),
-        sa.column("patchd_at", sa.DateTime(timezone=True)),
+        sa.column("updated_at", sa.DateTime(timezone=True)),
         schema="db_schema",
     )
 
@@ -66,7 +66,7 @@ def upgrade() -> None:
         sa.column("get_all", sa.Boolean()),
         sa.column("delete", sa.Boolean()),
         sa.column("created_at", sa.DateTime(timezone=True)),
-        sa.column("patchd_at", sa.DateTime(timezone=True)),
+        sa.column("updated_at", sa.DateTime(timezone=True)),
         schema="db_schema",
     )
 
@@ -84,12 +84,12 @@ def upgrade() -> None:
             {
                 "element": user_elements,
                 "created_at": now,
-                "patchd_at": now,
+                "updated_at": now,
             },
             {
                 "element": user_role_elements,
                 "created_at": now,
-                "patchd_at": now,
+                "updated_at": now,
             },
         ],
     )
@@ -107,7 +107,7 @@ def upgrade() -> None:
                 "get_all": True,
                 "delete": True,
                 "created_at": now,
-                "patchd_at": now,
+                "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
@@ -119,7 +119,7 @@ def upgrade() -> None:
                 "get_all": False,
                 "delete": True,
                 "created_at": now,
-                "patchd_at": now,
+                "updated_at": now,
             },
             {
                 "id": uuid.uuid4(),
@@ -131,7 +131,7 @@ def upgrade() -> None:
                 "get_all": True,
                 "delete": True,
                 "created_at": now,
-                "patchd_at": now,
+                "updated_at": now,
             },
         ],
     )

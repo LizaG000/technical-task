@@ -13,13 +13,16 @@ class GetAccessRightsGate(PostgresGateway):
         stmt = (
             select(
                 UserRolesModel.id,
+                UserRolesModel.user_id,
                 UserRolesModel.role,
                 RoleElementsModel.element,
                 RoleElementsModel.create,
                 RoleElementsModel.patch,
                 RoleElementsModel.get,
                 RoleElementsModel.get_all,
-                RoleElementsModel.delete
+                RoleElementsModel.delete,
+                RoleElementsModel.created_at,
+                RoleElementsModel.updated_at,
             )
             .join(UserRolesModel, UserRolesModel.role == RoleElementsModel.role)
             .where(user_id==UserRolesModel.user_id, element==RoleElementsModel.element)
