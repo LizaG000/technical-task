@@ -13,6 +13,7 @@ from src.config import RedisConfig
 
 from src.usecase.auth.registration import RegistrationUserUsecase
 from src.usecase.auth.login import LoginUserUsecase
+from src.usecase.auth.logout import LogoutUserUsecase
 from src.usecase.users.update import UpdateUserUsecase
 from src.usecase.users.delete import DeleteUserUsecase
 
@@ -46,6 +47,7 @@ class MainProvider(Provider):
     _get_usecases = provide_all(
         RegistrationUserUsecase,
         LoginUserUsecase,
+        LogoutUserUsecase,
         UpdateUserUsecase,
         DeleteUserUsecase,
     )
