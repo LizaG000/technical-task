@@ -115,9 +115,57 @@ class UserRolesModel(BaseDBModel):
     )
     role: Mapped[str] = mapped_column(
         String(255),
-        ForeignKey("db_schema.roles.id"),
+        ForeignKey("db_schema.roles.role"),
         nullable=False,
 
+    )
+    created_at: Mapped[created_at]
+    updated_at: Mapped[updated_at]
+
+class ElementsModel(BaseDBModel):
+    __tablename__ = 'elements'
+    element: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+        primary_key=True,
+    )
+    created_at: Mapped[created_at]
+    updated_at: Mapped[updated_at]
+
+class RoleElementsModel(BaseDBModel):
+    __tablename__ = 'role_elements'
+    id: Mapped[uuid_pk]
+    element: Mapped[str] = mapped_column(
+        String(255),
+        ForeignKey("db_schema.elements.element"),
+        nullable=False,
+
+    )
+    role: Mapped[str] = mapped_column(
+        String(255),
+        ForeignKey("db_schema.roles.role"),
+        nullable=False,
+
+    )
+    create: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+    )
+    update: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+    )
+    get: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+    )
+    get_all: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+    )
+    delete: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
     )
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
