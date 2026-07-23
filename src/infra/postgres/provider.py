@@ -16,6 +16,7 @@ from src.infra.postgres.gateways.base import DeleteReturningGate
 
 from src.infra.postgres.gateways.users import GetUserGate
 from src.infra.postgres.gateways.roles import GetAccessRightsGate
+from src.infra.postgres.gateways.user_roles import GetUserRoleGate
 
 TTable = TypeVar("TTable")
 TEntity = TypeVar("TEntity")
@@ -182,4 +183,5 @@ class PostgresProvider(Provider):
     _get_gateways = provide_all(
         GetUserGate,
         GetAccessRightsGate,
+        GetUserRoleGate,
     )

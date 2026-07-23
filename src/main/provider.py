@@ -16,6 +16,7 @@ from src.usecase.auth.login import LoginUserUsecase
 from src.usecase.auth.logout import LogoutUserUsecase
 from src.usecase.users.update import UpdateUserUsecase
 from src.usecase.users.delete import DeleteUserUsecase
+from src.usecase.user_roles.create import CreateUserRoleUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -50,5 +51,6 @@ class MainProvider(Provider):
         LogoutUserUsecase,
         UpdateUserUsecase,
         DeleteUserUsecase,
+        CreateUserRoleUsecase,
     )
 
