@@ -52,8 +52,9 @@ class NotFoundError(BaseError):
         super().__init__(f"В {table.__tablename__} запись не найдена", status_code)
 
 
-class InvalidCredentialsError(Exception):
-    code = "INVALID_CREDENTIALS"
-
-    def __init__(self) -> None:
-        super().__init__("Неверный email или пароль")
+class UnauthorizedError(BaseError):
+    def __init__(
+        self,
+        status_code: int = status.HTTP_401_UNAUTHORIZED,
+    ):
+        super().__init__(f"Пользователь не авторизован", status_code)

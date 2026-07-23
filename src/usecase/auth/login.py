@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from src.application.servers.auth.check_password import check_password
 from src.application.errors import InvalidCredentialsError
 from src.application.servers.auth.encoded_jwt import EncodedJwt
+from src.application.errors import UnauthorizedError
 from loguru import logger
 
 @dataclass(slots=True, frozen=True, kw_only=True)
@@ -23,6 +24,8 @@ class LoginUserUsecase(Usecase[RequestLoginSchema, ResponseRegistrationSchema]):
     async def __call__(self, data: RequestLoginSchema) -> ResponseRegistrationSchema:
         async with self.session.begin():
             user = await self.get_user(data.email)
+            if not user.is_active:
+                raise UnauthorizedError()
             password = await self.get_password(user.id)
             if not check_password(data.password, password.password):
                 raise InvalidCredentialsError()

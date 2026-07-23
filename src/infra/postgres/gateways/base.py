@@ -10,7 +10,6 @@ from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 from typing import TypeVar, Generic, Type
 TAppliable = Select | ReturningInsert | ReturningUpdate
 from src.application.errors import DatabaseCreateError, DatabaseDeleteError, DatabaseUpdateError, NotFoundError
-from loguru import logger
 
 TTable = TypeVar('TTable', bound=BaseDBModel)
 TEntity = TypeVar('TEntity', bound=BaseModel)
@@ -44,10 +43,7 @@ class GetByIdUserGate(Generic[TTable, TEntity, TEntityId], PostgresGateway):
 
     async def __call__(self, user_id = TEntityId) -> TEntity:
         stmt = Select(*self.table.group_by_fields()).where(self.table.user_id == user_id)
-        logger.info(1)
         result = (await self.session.execute(stmt)).mappings().fetchone()
-        logger.info(2)
-        logger.info(result)
         if result is None:
             raise  NotFoundError(self.table)
         return self.schema_type.model_validate(result)
