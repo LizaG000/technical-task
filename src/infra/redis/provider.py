@@ -1,9 +1,12 @@
 from collections.abc import AsyncIterator
 from typing import TypeVar, Type
-from dishka import Provider, Scope, provide
+from dishka import Provider, Scope, provide, provide_all
 from src.config import RedisConfig
 from loguru import logger
 from redis.asyncio import Redis
+
+from src.infra.redis.set_jwt import SetJWTToRedis
+from src.infra.redis.get_jwt import GetJWTToRedis
 
 
 class RedisProvider(Provider):
@@ -23,3 +26,9 @@ class RedisProvider(Provider):
             yield client
         except:
             await client.aclose()
+    
+    
+    _get_redis = provide_all(
+        SetJWTToRedis,
+        GetJWTToRedis,
+    )
