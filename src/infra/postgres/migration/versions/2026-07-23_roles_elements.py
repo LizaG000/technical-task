@@ -77,7 +77,6 @@ def upgrade() -> None:
 
     admin_role_id = "admin"
     user_role_id = "user"
-    editor_role_id = "editor"
 
     op.bulk_insert(
         elements_table,
