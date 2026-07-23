@@ -5,5 +5,9 @@ from redis.asyncio import Redis
 @dataclass(slots=True, frozen=True, kw_only=True)
 class GetJWTToRedis():
     redis: Redis
-    async def __call__(self, jti: UUID) -> None:
-        await self.redis.get(name=jti)
+    async def __call__(self, jti: UUID) -> bool:
+        data = await self.redis.get(name=str(jti))
+        if data is None:
+            return False
+        return True
+        
