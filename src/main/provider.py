@@ -9,6 +9,7 @@ from src.config import Config, DataConfig
 from src.config import ApiConfig
 from src.config import DatabaseConfig
 from src.config import AuthConfig
+from src.config import RedisConfig
 
 from src.usecase.auth.registration import RegistrationUserUsecase
 from src.usecase.auth.login import LoginUserUsecase
@@ -35,6 +36,10 @@ class MainProvider(Provider):
     @provide(scope=Scope.APP)
     async def _get_data_config(self, config: Config) -> DataConfig:
         return config.data
+    
+    @provide(scope=Scope.APP)
+    async def _get_redis_config(self, config: Config) -> RedisConfig:
+        return config.redis
     
     _request = from_context(provides=Request, scope=Scope.REQUEST)
 

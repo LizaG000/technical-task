@@ -34,12 +34,18 @@ class AuthConfig(BaseSchema):
 class DataConfig(BaseSchema):
     user_role_id: str
 
+class RedisConfig(BaseSchema):
+    host: str = 'redis'
+    port: int = 6379
+    password: str = 'redis'
+
 class Config(BaseSchema):
     model_config = ConfigDict(extra='allow', from_attributes=True)
     api: ApiConfig
     database: DatabaseConfig
     auth: AuthConfig
     data: DataConfig
+    redis: RedisConfig
 
 
 def get_config() -> Config:
