@@ -36,7 +36,7 @@ class CreateUserSchema(BaseModel):
     email: str = Field(pattern=EMAIL_PATTERN)
 
 class UserRoleSchema(UserSchema):
-    role: str
+    roles: list[str]
 
 
 class UpdateUserSchema(BaseModel):
