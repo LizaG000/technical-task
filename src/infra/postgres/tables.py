@@ -151,7 +151,7 @@ class RoleElementsModel(BaseDBModel):
         Boolean,
         nullable=False,
     )
-    update: Mapped[bool] = mapped_column(
+    patch: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,
     )

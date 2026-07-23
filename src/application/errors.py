@@ -57,4 +57,11 @@ class UnauthorizedError(BaseError):
         self,
         status_code: int = status.HTTP_401_UNAUTHORIZED,
     ):
-        super().__init__(f"Пользователь не авторизован", status_code)
+        super().__init__(f"Пользователь не авторизован.", status_code)
+        
+class ForbiddenError(BaseError):
+    def __init__(
+        self,
+        status_code: int = status.HTTP_403_FORBIDDEN,
+    ):
+        super().__init__(f"Данный ресурс не доступен.", status_code)
