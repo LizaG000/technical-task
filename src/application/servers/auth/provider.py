@@ -2,9 +2,9 @@ from dishka import Provider, Scope, provide, FromDishka, provide_all
 from fastapi import HTTPException, Request
 from src.application.servers.auth.encoded_jwt import EncodedJwt
 from src.application.servers.auth.decoded_jwt import DecodedJwt
+from src.application.servers.auth.check_is_active import CheckIsActive
 from src.application.schemas.auth import AuthSchema
-from src.config import AuthConfig
-from loguru import logger
+from src.application.errors import UnauthorizedError
 
 
 class AuthProvider(Provider):
@@ -13,6 +13,7 @@ class AuthProvider(Provider):
     _get_jwt = provide_all(
         EncodedJwt,
         DecodedJwt,
+        CheckIsActive,
     )
 
     @provide(provides=AuthSchema)
@@ -26,7 +27,7 @@ class AuthProvider(Provider):
         try:
             return await processor(token)
         except ValueError as e:
-            raise HTTPException(status_code=401, detail=str(e))
+            raise UnauthorizedError()
         
     
     
