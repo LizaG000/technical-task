@@ -7,7 +7,7 @@ from src.config import AuthConfig
 @dataclass(slots=True, frozen=True, kw_only=True)
 class EncodedJwt():
     config: AuthConfig
-    async def __call__(self, user_id: uuid.UUID, role: str):
+    async def __call__(self, user_id: uuid.UUID, role: list[str]):
         iat = datetime.now(timezone.utc)
         expire = iat + timedelta(minutes=self.config.time)
 

@@ -24,6 +24,16 @@ class GetUserGate(PostgresGateway):
             )
             .join(UserRolesModel, UserRolesModel.user_id == UserModel.id)
             .where(UserModel.email == email)
+            .group_by(
+                UserModel.id,
+                UserModel.first_name,
+                UserModel.last_name,
+                UserModel.middle_name,
+                UserModel.email,
+                UserModel.is_active,
+                UserModel.created_at,
+                UserModel.updated_at,
+            )
         )
 
         result = (await self.session.execute(stmt)).mappings().fetchone()

@@ -29,7 +29,7 @@ class LoginUserUsecase(Usecase[RequestLoginSchema, ResponseRegistrationSchema]):
             password = await self.get_password(user.id)
             if not check_password(data.password, password.password):
                 raise InvalidCredentialsError()
-            token = await self.encode_jwt(user.id, user.role)
+            token = await self.encode_jwt(user.id, user.roles)
             return ResponseRegistrationSchema(
                 id=user.id,
                 first_name=user.first_name,
