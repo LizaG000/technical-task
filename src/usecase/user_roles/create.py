@@ -2,7 +2,6 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.infra.postgres.gateways.user_roles import GetUserRoleGate
-from src.application.schemas.users import SoftDeleteUserSchema
 from src.usecase.base import Usecase
 from src.infra.postgres.gateways.base import CreateReturningGate
 from src.infra.postgres.tables import UserRolesModel

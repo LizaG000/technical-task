@@ -9,7 +9,7 @@ from src.usecase.user_roles.create import CreateUserRoleUsecase
 ROUTER = APIRouter(route_class=DishkaRoute)
 
 @ROUTER.post('', status_code=status.HTTP_200_OK, response_model=UserRoleSchema, dependencies=[Depends(HTTPBearer())])
-async def update_user(
+async def create_user(
     usecase: FromDishka[CreateUserRoleUsecase],
     data: CreateUserRoleSchema) -> UserRoleSchema:
     return await usecase(data)
