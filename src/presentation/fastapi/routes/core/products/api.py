@@ -13,7 +13,7 @@ async def get_all_product(
     usecase: FromDishka[GetAllProductsUsecase]) -> list[ProductSchema]:
     return await usecase()
 
-@ROUTER.post('', status_code=status.HTTP_200_OK, response_model=ProductSchema, dependencies=[Depends(HTTPBearer())])
+@ROUTER.post('', status_code=status.HTTP_200_OK, response_model=ProductSchema)
 async def create_product(
     usecase: FromDishka[CreateProductUsecase],
     data: CreateProductSchema) -> ProductSchema:

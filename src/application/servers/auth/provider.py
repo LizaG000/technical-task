@@ -24,12 +24,10 @@ class AuthProvider(Provider):
             request: FromDishka[Request],
     ) -> AuthSchema:
         auth_header = request.headers.get("Authorization")
-        token = auth_header.removeprefix("Bearer ").strip()
-        logger.info(token)
-        try:
-            return await processor(token)
-        except ValueError as e:
+        if auth_header is None:
             raise UnauthorizedError()
+        token = auth_header.removeprefix("Bearer ").strip()
+        return await processor(token)
         
     
     
