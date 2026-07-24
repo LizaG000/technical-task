@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from src.application.schemas.permission import PermissionSchema
 from sqlalchemy import func, select
 from src.application.errors import ForbiddenError, NotFoundError
+from loguru import logger
 
 @dataclass(slots=True, kw_only=True)
 class GetAccessRightsGate(PostgresGateway):
@@ -42,7 +43,9 @@ class GetAccessRightsGate(PostgresGateway):
 
         
 
+        logger.info(stmt)
         result = (await self.session.execute(stmt)).mappings().fetchone()
+        logger.info(result)
         if result is None:
             raise  ForbiddenError()
         return PermissionSchema.model_validate(result)

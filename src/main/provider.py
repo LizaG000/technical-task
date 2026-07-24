@@ -21,6 +21,8 @@ from src.usecase.user_roles.delete import DeleteUserRoleUsecase
 from src.usecase.users.get import GetUserRoleUsecase
 from src.usecase.permission.update import UpdatePermissionUsecase
 from src.usecase.permission.get_all import GetAllPermissionUsecase
+from src.usecase.products.get_all import GetAllProductsUsecase
+from src.usecase.products.create import CreateProductUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -60,5 +62,7 @@ class MainProvider(Provider):
         DeleteUserRoleUsecase,
         UpdatePermissionUsecase,
         GetAllPermissionUsecase,
+        GetAllProductsUsecase,
+        CreateProductUsecase,
     )
 
