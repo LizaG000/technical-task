@@ -1,7 +1,9 @@
 import uuid
 from datetime import datetime, date
 from sqlalchemy import UUID
-from sqlalchemy import Date
+from sqlalchemy import Float
+from sqlalchemy import Integer
+from sqlalchemy import Text
 from sqlalchemy import String
 from sqlalchemy import Boolean
 from sqlalchemy import DateTime
@@ -169,3 +171,29 @@ class RoleElementsModel(BaseDBModel):
     )
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
+
+
+class ProductsModel(BaseDBModel):
+    __tablename__ = 'products'
+    id: Mapped[uuid_pk]
+    name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+
+    )
+    description: Mapped[str] = mapped_column(
+        Text,
+        nullable=True,
+    )
+    price: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
+    count: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+    created_at: Mapped[created_at]
+    updated_at: Mapped[updated_at]
+
+
