@@ -5,8 +5,6 @@ from dishka.integrations.fastapi import FromDishka
 from fastapi import APIRouter, Depends
 from fastapi.security import HTTPBearer
 from fastapi import status
-
-from src.application.schemas.user_role import GetUserRoleSchema
 from src.application.schemas.users import UpdateUserSchema, UserSchema, UserRoleSchema
 from src.usecase.users.update import UpdateUserUsecase
 from src.usecase.users.delete import DeleteUserUsecase

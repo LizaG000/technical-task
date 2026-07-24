@@ -5,7 +5,7 @@ from src.infra.postgres.tables import UserModel, UserRolesModel
 from dataclasses import dataclass
 from src.application.schemas.users import UserRoleSchema
 from sqlalchemy import func, select
-from src.application.errors import InvalidCredentialsError
+from src.application.errors import InvalidCredentialsError, NotFoundError
 
 @dataclass(slots=True, kw_only=True)
 class GetUserGate(PostgresGateway):
@@ -24,7 +24,7 @@ class GetUserGate(PostgresGateway):
                     UserRolesModel.role
                 ).label("roles"),
             )
-            .join(UserRolesModel, UserRolesModel.user_id == UserModel.id)
+            .outerjoin(UserRolesModel, UserRolesModel.user_id == UserModel.id)
             .where(UserModel.email == email)
             .group_by(
                 UserModel.id,
@@ -57,11 +57,9 @@ class GetUserByIdGate(PostgresGateway):
                 UserModel.is_active,
                 UserModel.created_at,
                 UserModel.updated_at,
-                func.array_agg(
-                    UserRolesModel.role
-                ).label("roles"),
+                func.array_agg(UserRolesModel.role).label("roles"),
             )
-            .join(UserRolesModel, UserRolesModel.user_id == UserModel.id)
+            .outerjoin(UserRolesModel, UserRolesModel.user_id == UserModel.id)
             .where(UserModel.id == user_id)
             .group_by(
                 UserModel.id,
@@ -77,7 +75,7 @@ class GetUserByIdGate(PostgresGateway):
 
         result = (await self.session.execute(stmt)).mappings().fetchone()
         if result is None:
-            raise  InvalidCredentialsError()
+            raise  NotFoundError()
         return UserRoleSchema.model_validate(result)
 
 

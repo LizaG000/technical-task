@@ -9,8 +9,8 @@ from src.infra.postgres.gateways.roles import GetAccessRightsGate
 from src.application.enums.elements import Elements
 from src.application.enums.method import Methods
 from src.application.schemas.users import UserRoleSchema
-from src.application.schemas.user_role import GetUserRoleSchema
 from dataclasses import dataclass
+from loguru import logger
 
 @dataclass(slots=True, frozen=True, kw_only=True)
 class GetUserRoleUsecase(Usecase[UUID|None, UserRoleSchema]):
@@ -23,9 +23,17 @@ class GetUserRoleUsecase(Usecase[UUID|None, UserRoleSchema]):
     async def __call__(self, data: UUID|None=None) -> UserRoleSchema:
         async with self.session.begin():
             await self.check_is_active(self.auth.id)
+            r = await self.get_access_rights(self.auth.id, Elements.USER_ROLE.value, Methods.GET.value)
+            logger.info(r)
+            user = await self.get_user_role(data)
+            logger.info(user)
+            return user
             try:
-                await self.get_access_rights(self.auth.id, Elements.USER_ROLE.value, Methods.GET.value)
-                return await self.get_user_role(data)
+                r = await self.get_access_rights(self.auth.id, Elements.USER_ROLE.value, Methods.GET.value)
+                logger.info(r)
+                user = await self.get_user_role(data)
+                logger.info(user)
+                return user
             except:
                 await self.get_access_rights(self.auth.id, Elements.USER.value, Methods.GET.value)
                 return await self.get_user_role(self.auth.id)

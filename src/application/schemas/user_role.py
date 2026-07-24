@@ -13,6 +13,7 @@ class UserRoleSchema(BaseModel):
 class CreateUserRoleSchema(BaseModel):
     user_id: UUID
     role: str
-    
-class GetUserRoleSchema(BaseModel):
+
+class DeleteUserRoleSchema(BaseModel):
     user_id: UUID
+    role: str

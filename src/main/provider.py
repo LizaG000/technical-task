@@ -17,6 +17,7 @@ from src.usecase.auth.logout import LogoutUserUsecase
 from src.usecase.users.update import UpdateUserUsecase
 from src.usecase.users.delete import DeleteUserUsecase
 from src.usecase.user_roles.create import CreateUserRoleUsecase
+from src.usecase.user_roles.delete import DeleteUserRoleUsecase
 from src.usecase.users.get import GetUserRoleUsecase
 
 class MainProvider(Provider):
@@ -54,5 +55,6 @@ class MainProvider(Provider):
         DeleteUserUsecase,
         CreateUserRoleUsecase,
         GetUserRoleUsecase,
+        DeleteUserRoleUsecase,
     )
 
