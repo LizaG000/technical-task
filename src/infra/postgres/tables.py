@@ -133,7 +133,7 @@ class ElementsModel(BaseDBModel):
     updated_at: Mapped[updated_at]
 
 class RoleElementsModel(BaseDBModel):
-    __tablename__ = 'role_elements'
+    __tablename__ = 'permission'
     id: Mapped[uuid_pk]
     element: Mapped[str] = mapped_column(
         String(255),

@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engin
 from src.config import DatabaseConfig
 from loguru import logger
 
-from src.infra.postgres.gateways.base import GetAllByIdUserGate, CreateGate
+from src.infra.postgres.gateways.base import GetAllByIdUserGate, CreateGate, GetAllGate
 from src.infra.postgres.gateways.base import CreateReturningGate
 from src.infra.postgres.gateways.base import GetByIdGate
 from src.infra.postgres.gateways.base import GetByIdUserGate
@@ -64,6 +64,20 @@ class PostgresProvider(Provider):
             schema_type=schema_type,
             entity_id=entity_id,
         )
+    
+    @provide
+    async def _get_all_gate(
+            self,
+            table: Type[TTable],
+            schema_type: Type[TEntity],
+            session: AsyncSession,
+    ) -> GetAllGate[TTable, TEntity]:
+        return GetAllGate(
+            session=session,
+            table=table,
+            schema_type=schema_type,
+        )
+    
     @provide
     async def _get_by_id_user_gate(
             self,

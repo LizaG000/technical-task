@@ -36,6 +36,18 @@ class GetAllByIdUserGate(Generic[TTable, TEntity, TEntityId], PostgresGateway):
 
 
 @dataclass(slots=True, kw_only=True)
+class GetAllGate(Generic[TTable, TEntity], PostgresGateway):
+    table: Type[TTable]
+    schema_type: Type[TEntity]
+
+    async def __call__(self, ) -> list[TEntity] | list[None]:
+        stmt = Select(*self.table.group_by_fields()).order_by(self.table.created_at.desc())
+        results = (await self.session.execute(stmt)).mappings().fetchall()
+        if results == []:
+            return  results
+        return [self.schema_type.model_validate(result) for result in results]
+
+@dataclass(slots=True, kw_only=True)
 class GetByIdUserGate(Generic[TTable, TEntity, TEntityId], PostgresGateway):
     table: Type[TTable]
     schema_type: Type[TEntity]

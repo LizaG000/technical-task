@@ -19,6 +19,8 @@ from src.usecase.users.delete import DeleteUserUsecase
 from src.usecase.user_roles.create import CreateUserRoleUsecase
 from src.usecase.user_roles.delete import DeleteUserRoleUsecase
 from src.usecase.users.get import GetUserRoleUsecase
+from src.usecase.permission.update import UpdatePermissionUsecase
+from src.usecase.permission.get_all import GetAllPermissionUsecase
 
 class MainProvider(Provider):
     scope = Scope.REQUEST
@@ -56,5 +58,7 @@ class MainProvider(Provider):
         CreateUserRoleUsecase,
         GetUserRoleUsecase,
         DeleteUserRoleUsecase,
+        UpdatePermissionUsecase,
+        GetAllPermissionUsecase,
     )
 

@@ -3,17 +3,16 @@ from uuid import UUID
 from src.infra.postgres.gateways.base import PostgresGateway
 from src.infra.postgres.tables import UserRolesModel, RoleElementsModel
 from dataclasses import dataclass
-from src.application.schemas.role_elements import RoleElementsSchema
+from src.application.schemas.permission import PermissionSchema
 from sqlalchemy import func, select
 from src.application.errors import ForbiddenError, NotFoundError
 
 @dataclass(slots=True, kw_only=True)
 class GetAccessRightsGate(PostgresGateway):
-    async  def __call__(self, user_id: UUID, element: str, method: str) -> RoleElementsSchema:
+    async  def __call__(self, user_id: UUID, element: str, method: str) -> PermissionSchema:
         stmt = (
             select(
-                UserRolesModel.id,
-                UserRolesModel.user_id,
+                RoleElementsModel.id,
                 UserRolesModel.role,
                 RoleElementsModel.element,
                 RoleElementsModel.create,
@@ -46,4 +45,4 @@ class GetAccessRightsGate(PostgresGateway):
         result = (await self.session.execute(stmt)).mappings().fetchone()
         if result is None:
             raise  ForbiddenError()
-        return RoleElementsSchema.model_validate(result)
+        return PermissionSchema.model_validate(result)
